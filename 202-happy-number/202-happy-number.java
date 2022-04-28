@@ -1,20 +1,19 @@
 class Solution {
     public boolean isHappy(int n) {
     
-        HashSet<Integer> set = new HashSet<>();
-        set.add(n);
-        
-        while(n != 1){
+        int slow = n;
+        int fast = cal(n);
+
+        while(fast != 1){
             
-            n = cal(n);
-            if(set.contains(n)) {
+            slow = cal(slow);
+            fast = cal(cal(fast));
+            
+            if (slow == fast){
                 return false;
             }
-            set.add(n);
         }
-        
         return true;
-        
     }
     
     public int cal(int num){
