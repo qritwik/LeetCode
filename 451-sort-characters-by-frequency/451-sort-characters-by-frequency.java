@@ -15,7 +15,6 @@ class Solution {
         });
         String out = "";
         for (Map.Entry<Character, Integer> aa : list) {
-            System.out.println(aa.getKey() + ":" + aa.getValue());
             out += String.valueOf(aa.getKey()).repeat(aa.getValue());
         }
         return out;
