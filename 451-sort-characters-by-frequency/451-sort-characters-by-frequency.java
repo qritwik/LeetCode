@@ -1,21 +1,19 @@
 class Solution {
     public String frequencySort(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
-        for(int i = 0; i < s.length(); i++) {
-            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
-        }        
-        List<Map.Entry<Character, Integer> > list =
-               new LinkedList<Map.Entry<Character, Integer> >(map.entrySet());
-         Collections.sort(list, new Comparator<Map.Entry<Character, Integer> >() {
-            public int compare(Map.Entry<Character, Integer> o1,
-                               Map.Entry<Character, Integer> o2)
-            {
-                return (o2.getValue()).compareTo(o1.getValue());
-            }
-        });
+        for(char c : s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        
+        PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue(Map.Entry.comparingByValue().reversed());
+        for(Map.Entry<Character, Integer> entry : map.entrySet()) {
+            pq.add(entry);
+        }
+        
         String out = "";
-        for (Map.Entry<Character, Integer> aa : list) {
-            out += String.valueOf(aa.getKey()).repeat(aa.getValue());
+        while(!pq.isEmpty()) {
+            Map.Entry<Character, Integer> entry = pq.remove();
+            out += String.valueOf(entry.getKey()).repeat(entry.getValue());
         }
         return out;
     }
