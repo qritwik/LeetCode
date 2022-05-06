@@ -1,26 +1,22 @@
 class Solution {
     public int[] countPoints(int[][] points, int[][] queries) {
-        int len = queries.length;
-        int[] ans = new int[len];
-         
-        for(int i=0;i<len;i++){
+        int result[] = new int[queries.length]; 
+        for(int j = 0; j < queries.length; j++) {
+            int query[] = queries[j];
+            int x = query[0], y = query[1], r = query[2];
             int count = 0;
-            int radius2 = queries[i][2] * queries[i][2];
-            for(int p=0; p<points.length;p++){
-                int[] point = points[p];
-                if(radius2(point,queries[i]) <= radius2){
-                    count += 1;
+            for(int i = 0; i < points.length; i++) {
+                if(radius2(x, y, points[i]) <= r*r) {
+                    count++;
                 }
             }
-            ans[i] = count;
+            result[j] = count;
         }
-        
-        return ans;
+        return result;
     }
-    
-    private int radius2(int[] point, int[] center){
-        int x = point[0] - center[0];
-        int y = point[1] - center[1];
-        return x*x + y*y;
+    public int radius2(int x, int y, int point[]) {
+        int x2 = (point[0] - x) * (point[0] - x);
+        int y2 = (point[1] - y) * (point[1] - y);
+        return x2 + y2;
     }
 }
