@@ -23,7 +23,6 @@ class Solution {
             }
             char charToInsert = s.charAt(i);
             smap.put(charToInsert, smap.getOrDefault(charToInsert, 0) + 1);
-            System.out.println(smap + " : " + i);
             if(smap.equals(pmap)) {
                 result.add(i-p.length()+1);
             }
