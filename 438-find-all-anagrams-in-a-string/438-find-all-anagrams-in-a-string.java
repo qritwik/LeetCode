@@ -1,28 +1,33 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> result = new ArrayList<>();
-        for(int i = 0; i <= (s.length() - p.length()); i++) {
-            String str = s.substring(i, i+p.length());
-            if(checkAnagram(str, p)) {
-                result.add(i);
+        HashMap<Character,Integer> pmap = new HashMap<>();
+        for(char ch : p.toCharArray()) {
+            pmap.put(ch, pmap.getOrDefault(ch, 0) + 1);
+        }
+        HashMap<Character,Integer> smap = new HashMap<>();
+        for(int i = 0; i < Math.min(p.length(),s.length()); i++) {
+            smap.put(s.charAt(i), smap.getOrDefault(s.charAt(i), 0) + 1);
+        }
+        if(smap.equals(pmap)) {
+            result.add(0);
+        }
+        
+        for(int i = p.length(); i < s.length(); i++) {
+            char charToRemove = s.charAt(i - p.length());
+            if(smap.get(charToRemove) > 1) {
+                smap.put(charToRemove, smap.get(charToRemove)-1);
+            }
+            else {
+                smap.remove(charToRemove);
+            }
+            char charToInsert = s.charAt(i);
+            smap.put(charToInsert, smap.getOrDefault(charToInsert, 0) + 1);
+            System.out.println(smap + " : " + i);
+            if(smap.equals(pmap)) {
+                result.add(i-p.length()+1);
             }
         }
         return result;
-    }
-    
-    public boolean checkAnagram(String s, String p) {
-        int[] bucket = new int[26];
-        for(char ch1 : s.toCharArray()) {
-            bucket[ch1 - 'a']++;
-        }
-        for(char ch2 : p.toCharArray()) {
-            bucket[ch2 - 'a']--;
-        }
-        for(int value : bucket) {
-            if(value != 0) {
-                return false;
-            }
-        }
-        return true;
     }
 }
