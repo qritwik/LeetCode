@@ -18,7 +18,6 @@ class Solution {
                 map.put(sortedStr, list);
             }
         }
-        
         List<List<String>> result = new ArrayList<>();
         for(String key : map.keySet()) {
             result.add(map.get(key));
