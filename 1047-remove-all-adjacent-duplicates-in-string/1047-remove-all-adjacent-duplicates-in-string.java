@@ -9,10 +9,8 @@ class Solution {
                 stack.pop();
             }
         }
-        String res = "";
-        while(!stack.empty()) {
-            res = stack.pop() + res;
-        }
-        return res;
+        StringBuilder sb = new StringBuilder();
+        for(char c : stack) sb.append(c);
+        return sb.toString();
     }
 }
