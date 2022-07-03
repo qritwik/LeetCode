@@ -13,13 +13,9 @@ class Solution {
         }
         int len = j - i + 1 - zc;
         max_len = Math.max(max_len, len);
-
         j++;
         while (j < n) {
-            if (nums[j] == 1) {
-                
-            } 
-            else if (nums[j] == 0 && zc == 0) {
+            if (nums[j] == 0 && zc == 0) {
                 zi = j;
                 zc = 1;
             } else if (nums[j] == 0 && zc == 1) {
@@ -30,8 +26,8 @@ class Solution {
             max_len = Math.max(max_len, len);
             j++;
         }
-        if(zc == 0) {
-            return max_len-1;
+        if (zc == 0) {
+            return max_len - 1;
         }
         return max_len;
     }
