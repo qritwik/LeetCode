@@ -10,50 +10,56 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
+        
+        ListNode temp1 = head;
+        ListNode temp2 = reverse(findMid(head).next);
+        ListNode d = null;
+        
+        if(temp2 == null) {
+            return;
+        }
+        while(temp1 != null && temp2 != null) {
+            if(d == null) {
+                ListNode cur = temp1.next;
+                temp1.next = temp2;
+                d = temp2;
+                temp1 = cur;
+                temp2 = temp2.next; 
+            }
+            else {
+                d.next = temp1;
+                ListNode cur = temp1.next;
+                temp1.next = temp2;
+                d = temp2;
+                temp1 = cur;
+                temp2 = temp2.next; 
+            }
+        }
+        
+        if(temp1 != null) {
+            d.next = temp1;
+            temp1.next = null;
+        }
+    }
     
-        List<Integer> list = new ArrayList<Integer>();
-        
-        ListNode temp = head;
+    public ListNode reverse(ListNode temp) {
+        ListNode d = null;
         while(temp != null) {
-            list.add(temp.val);
-            temp = temp.next;
+            ListNode cur = temp.next;
+            temp.next = d;
+            d = temp;
+            temp = cur;
         }
-        
-        int start = 0;
-        int end = list.size() - 1;
-        ListNode prev = null;
-        
-        while(start < end){
-            
-            int a = list.get(start);
-            int b = list.get(end);
-            
-            ListNode low = new ListNode(a);
-            ListNode high = new ListNode(b);
-            
-            if(start == 0){
-                head.next = high;
-            }
-            else{
-                low.next = high;
-            }
-            
-            if(prev != null) {
-                prev.next = low;
-            }
-            prev = high;
-            
-            start++;
-            end--;
-            
+        return d;
+    }
+    
+    public ListNode findMid(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        
-        if(list.size() % 2 != 0){
-            ListNode last = new ListNode(list.get(start));
-            if(prev != null) {
-                prev.next = last;
-            }
-        }
-                
+        return slow;
     }
 }
