@@ -1,30 +1,25 @@
 class Solution {
-    
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> output = new ArrayList<>();
-        List<Integer> asf = new ArrayList<>();
-        permuteHelper(nums, asf, output);
-        return output;
+        return permuteHelper(nums, 0);
     }
-    public void permuteHelper(int[] nums, List<Integer> asf, List<List<Integer>> output) {
+    
+    public List<List<Integer>> permuteHelper(int[] nums, int si) {
         
-        if(nums.length == 0) {
-            output.add(new ArrayList<>(asf));
-            return;
+        List<List<Integer>> result = new ArrayList<>();
+        if(si == nums.length) {
+            List<Integer> tempList = new ArrayList<>();
+            result.add(tempList);
+            return result;
         }
-        for(int i = 0; i < nums.length; i++) {
-            int shortNums[] = new int[nums.length - 1];
-            int k = 0;
-            for(int j = 0; j < i; j++) {
-                shortNums[k++] = nums[j];
+        
+        List<List<Integer>> smallOut = permuteHelper(nums, si+1);
+        for(List<Integer> list : smallOut) {
+            for(int i = 0; i < nums.length-si; i++) {
+                List<Integer> tempList = new ArrayList<>(list);
+                tempList.add(i, nums[si]);
+                result.add(tempList);
             }
-            for(int j = i+1; j < nums.length; j++) {
-                shortNums[k++] = nums[j];
-            }
-            
-            asf.add(nums[i]);
-            permuteHelper(shortNums, asf, output);
-            asf.remove(asf.size()-1);
         }
+        return result;
     }
 }
