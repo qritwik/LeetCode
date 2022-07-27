@@ -1,25 +1,26 @@
 class Solution {
+    List<List<String>> result = new ArrayList<>();
 
     public List<List<String>> partition(String s) {
-        List<List<String>> result = new ArrayList<>();
+        List<String> asf = new ArrayList<>();
+        partitionHelper(s, asf);
+        return result;
+    }
+
+    public void partitionHelper(String s, List<String> asf) {
         if (s.length() == 0) {
-            List<String> list = new ArrayList<>();
-            result.add(list);
-            return result;
+            result.add(new ArrayList<>(asf));
+            return;
         }
 
         for (int i = 0; i < s.length(); i++) {
             String prefix = s.substring(0, i + 1);
             if (isPalindrome(prefix)) {
-                List<List<String>> smallAns = partition(s.substring(i + 1));
-                for (List<String> list : smallAns) {
-                    List<String> newList = new ArrayList<>(list);
-                    newList.add(0, prefix);
-                    result.add(newList);
-                }
+                asf.add(prefix);
+                partitionHelper(s.substring(i + 1), asf);
+                asf.remove(asf.size() - 1);
             }
         }
-        return result;
     }
 
     public boolean isPalindrome(String s) {
