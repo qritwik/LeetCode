@@ -2,12 +2,12 @@ class Solution {
     boolean[][] visited;
 
     public boolean exist(char[][] board, String word) {
-        int m = board.length;
-        int n = board[0].length;
-        visited = new boolean[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (word.charAt(0) == board[i][j] && boardHelper(board, i, j, m, n, 0, word)) {
+        int row = board.length;
+        int column = board[0].length;
+        visited = new boolean[row][column];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (word.charAt(0) == board[i][j] && search(board, word, row, column, i, j, 0)) {
                     return true;
                 }
             }
@@ -15,25 +15,22 @@ class Solution {
         return false;
     }
 
-    public boolean boardHelper(char[][] board, int i, int j, int m, int n, int index, String word) {
+    public boolean search(char[][] board, String word, int row, int column, int i, int j, int index) {
         if (index == word.length()) {
             return true;
         }
 
-        if (i < 0 || j < 0 || i >= m || j >= n || word.charAt(index) != board[i][j] || visited[i][j]) {
+        if (i < 0 || j < 0 || i >= row || j >= column || word.charAt(index) != board[i][j] || visited[i][j]) {
             return false;
         }
 
         visited[i][j] = true;
-
-        boolean ans1 = boardHelper(board, i + 1, j, m, n, index + 1, word);
-        boolean ans2 = boardHelper(board, i - 1, j, m, n, index + 1, word);
-        boolean ans3 = boardHelper(board, i, j + 1, m, n, index + 1, word);
-        boolean ans4 = boardHelper(board, i, j - 1, m, n, index + 1, word);
-
-        if (ans1 || ans2 || ans3 || ans4) {
-            return true;
-        }
+        if (
+            search(board, word, row, column, i + 1, j, index + 1) ||
+            search(board, word, row, column, i - 1, j, index + 1) ||
+            search(board, word, row, column, i, j + 1, index + 1) ||
+            search(board, word, row, column, i, j - 1, index + 1)
+        ) return true;
 
         visited[i][j] = false;
         return false;
