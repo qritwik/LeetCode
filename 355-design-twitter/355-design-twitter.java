@@ -39,7 +39,7 @@ class Twitter {
         if (followerFolloweeMap.containsKey(userId)) {
             Set<Integer> userFolloweeSet = followerFolloweeMap.get(userId);
             for (int user : userFolloweeSet) {
-                if(userTweetMap.containsKey(user)) {
+                if (userTweetMap.containsKey(user)) {
                     List<Pair> userFolloweePairList = userTweetMap.get(user);
                     for (Pair p1 : userFolloweePairList) {
                         pq.add(p1);
@@ -71,11 +71,11 @@ class Twitter {
     }
 
     public void unfollow(int followerId, int followeeId) {
-        if(followerFolloweeMap.containsKey(followerId)) {
+        if (followerFolloweeMap.containsKey(followerId)) {
             Set<Integer> set = followerFolloweeMap.get(followerId);
-            if(set.contains(followeeId)) set.remove(followeeId);
+            if (set.contains(followeeId)) set.remove(followeeId);
             followerFolloweeMap.put(followerId, set);
-        } 
+        }
     }
 }
 
