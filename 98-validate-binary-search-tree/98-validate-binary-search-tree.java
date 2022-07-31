@@ -14,39 +14,38 @@
  * }
  */
 class Solution {
+
     public boolean isValidBST(TreeNode root) {
-        
-        if(root == null) {
+        if (root == null) {
             return true;
         }
-        
-        if(root.left == null && root.right == null) return true;
-        
-        if(isValidBST(root.left) && isValidBST(root.right) && getMax(root.left) < root.val && getMin(root.right) > root.val) {
+
+        if (root.left == null && root.right == null) return true;
+
+        if (isValidBST(root.left) && isValidBST(root.right) && getMax(root.left) < root.val && getMin(root.right) > root.val) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
-    
+
     public long getMax(TreeNode root) {
-        if(root == null) {
+        if (root == null) {
             return Long.MIN_VALUE;
         }
-        if(root.left == null && root.right == null) {
+        if (root.left == null && root.right == null) {
             return root.val;
         }
         long l = getMax(root.left);
         long r = getMax(root.right);
         return Math.max(root.val, Math.max(l, r));
     }
-    
+
     public long getMin(TreeNode root) {
-        if(root == null) {
+        if (root == null) {
             return Long.MAX_VALUE;
         }
-        if(root.left == null && root.right == null) {
+        if (root.left == null && root.right == null) {
             return root.val;
         }
         long l = getMin(root.left);
