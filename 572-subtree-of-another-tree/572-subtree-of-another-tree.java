@@ -18,11 +18,13 @@ class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         if (root == null) return false;
         if (subRoot == null) return true;
+        
+        if(isSame(root, subRoot)) return true;
 
         boolean l = isSubtree(root.left, subRoot);
         boolean r = isSubtree(root.right, subRoot);
 
-        if (isSame(root, subRoot) || l || r) {
+        if (l || r) {
             return true;
         } else {
             return false;
