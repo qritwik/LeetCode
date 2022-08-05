@@ -24,11 +24,11 @@ class Solution {
     public void sumNumbersHelper(TreeNode root, String path) {
         if (root == null) return;
         if (root.left == null && root.right == null) {
-            path += root.val;
+            path += String.valueOf(root.val);
             sum += Integer.parseInt(path);
             return;
         }
-        sumNumbersHelper(root.left, path + "" + root.val);
-        sumNumbersHelper(root.right, path + "" + root.val);
+        sumNumbersHelper(root.left, path+String.valueOf(root.val));
+        sumNumbersHelper(root.right, path+String.valueOf(root.val));
     }
 }
