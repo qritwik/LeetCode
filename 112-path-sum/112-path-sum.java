@@ -14,22 +14,23 @@
  * }
  */
 class Solution {
-
+    boolean flag;
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        if (root == null) {
-            return false;
-        }
-        if (root.left == null && root.right == null && root.val == targetSum) {
-            return true;
-        }
-
-        boolean left = hasPathSum(root.left, targetSum - root.val);
-        boolean right = hasPathSum(root.right, targetSum - root.val);
-
-        if (left || right) {
-            return true;
-        } else {
-            return false;
-        }
+        flag = false;
+        hasPathSumHelper(root, 0, targetSum);
+        return flag;
+    }
+    
+    public void hasPathSumHelper(TreeNode root, int sum, int targetSum) {
+        if(root == null) return;
+        if(root.left == null && root.right == null) {
+            sum+=root.val;
+            if(sum == targetSum) {
+                flag = true;
+                return;
+            }
+        } 
+        hasPathSumHelper(root.left, sum+root.val, targetSum);
+        hasPathSumHelper(root.right, sum+root.val, targetSum);
     }
 }
