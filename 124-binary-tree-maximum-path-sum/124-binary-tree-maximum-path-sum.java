@@ -1,32 +1,32 @@
-public class Solution {
-    private int maxSum;
-
-    public int maxSumHelper(TreeNode root) {
-		
-		// base case
-        if (root == null) return 0; 
-		
-		// recursing through left and right subtree
-        int leftMax = maxSumHelper(root.left);
-        int rightMax = maxSumHelper(root.right);
-
-		// finding all the four paths and the maximum between all of them
-        int maxRightLeft = Math.max(leftMax, rightMax);
-        int maxOneNodeRoot = Math.max(root.val, (root.val + maxRightLeft));
-        int maxAll = Math.max(maxOneNodeRoot, leftMax + rightMax + root.val);
-		
-		// Storing the result in the maxSum holder
-        maxSum = Math.max(maxSum, maxAll);
-		
-		// returning the value if root was part of the answer
-        return maxOneNodeRoot;
-
-    }
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int max_sum = Integer.MIN_VALUE;
 
     public int maxPathSum(TreeNode root) {
-        maxSum = Integer.MIN_VALUE;
-        maxSumHelper(root);
-        return maxSum; // as maxSum will always store the result
+        max_gain(root);
+        return max_sum;
+    }
 
+    public int max_gain(TreeNode node) {
+        if (node == null) return 0;
+        int left = Math.max(0, max_gain(node.left));
+        int right = Math.max(0, max_gain(node.right));
+        int new_path = left + right + node.val;
+        max_sum = Math.max(max_sum, new_path);
+        return Math.max(left, right) + node.val;
     }
 }
