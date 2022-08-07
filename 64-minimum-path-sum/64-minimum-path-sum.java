@@ -3,7 +3,7 @@ class Solution {
     public int minPathSum(int[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
-        int[][] dp = new int[m + 1][n + 1];
+        int[][] dp = new int[m][n];
         return func(grid, 0, 0, dp);
     }
 
