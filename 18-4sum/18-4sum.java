@@ -8,9 +8,6 @@ class Solution {
         Set<List<Integer>> set = new HashSet<>();
         
         for(int k = 0; k <= n - 4; k++) {
-            if (k > 0 && nums[k] == nums[k - 1]) {
-                continue;
-            }
             int target1 = target - nums[k];
             for (int i = k+1; i <= n - 3; i++) {
                 int target2 = target1 - nums[i];
@@ -26,9 +23,6 @@ class Solution {
                         set.add(list);
                         start++;
                         end--;
-                        while (start < end && nums[start] == nums[start - 1]) {
-                            start++;
-                        }
                     } else if (nums[start] + nums[end] < target2) {
                         start++;
                     } else {
