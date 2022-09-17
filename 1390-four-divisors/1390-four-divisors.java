@@ -19,8 +19,8 @@ class Solution {
             if (n % i == 0) {
                 if(n/i == i) {
                     Pair p1 = new Pair();
-                    p1.sum = 0;
-                    p1.count = 0;
+                    p1.sum += i;
+                    p1.count++;
                     return p1;
                 }
                 else {
