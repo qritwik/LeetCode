@@ -9,7 +9,6 @@ public class Solution {
         for(int i = 0; i < 32-len; i++) {
             newBinaryStr = newBinaryStr.concat("0");
         }
-        System.out.println(newBinaryStr);
         int res = Integer.parseUnsignedInt(newBinaryStr, 2);
         return res;
     }
