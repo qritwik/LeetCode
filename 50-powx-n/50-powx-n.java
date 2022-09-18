@@ -3,8 +3,8 @@ class Solution {
         if (n == 0) {
             return 1;
         }
-        if (x == 0 || x == 1 || n == 1) {
-            return x;
+        if (x == 0) {
+            return 0;
         }
 
         double num = myPow(x, n / 2);
