@@ -1,22 +1,31 @@
 class Solution {
-    int count;
-    int[][] memo;
-
     public int uniquePaths(int m, int n) {
-        memo = new int[m][n];
-        return uniquePathsHelper(0, m - 1, 0, n - 1, "");
-    }
-
-    public int uniquePathsHelper(int si, int ei, int sj, int ej, String path) {
-        if (si > ei || sj > ej) {
-            return 0;
-        } else if (si == ei && sj == ej) {
-            return 1;
-        } else if (memo[si][sj] > 0) {
-            return memo[si][sj];
-        } else {
-            memo[si][sj] = uniquePathsHelper(si + 1, ei, sj, ej, path + "D") + uniquePathsHelper(si, ei, sj + 1, ej, path + "R");
-            return memo[si][sj];
+        int[][] dp = new int[m+1][n+1];
+        for(int[] row : dp) {
+            Arrays.fill(row, -1);
         }
+        int count = 0;
+        count = func(0, m-1, 0, n-1, count, dp);
+        return count;
+    }
+    
+    public int func(int is, int ie, int js, int je, int count, int[][] dp) {
+        
+        if(is == ie && js == je) {
+            count++;
+            return dp[is][js] = count;
+        }
+        
+        if(is > ie || js > je) {
+            return 0;
+        }
+        
+        if(dp[is][js] != -1) {
+            return dp[is][js];
+        }
+        
+        int out1 = func(is+1, ie, js, je, count, dp);
+        int out2 = func(is, ie, js+1, je, count, dp);
+        return dp[is][js] = out1 + out2;
     }
 }
