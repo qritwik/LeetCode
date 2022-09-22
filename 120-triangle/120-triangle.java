@@ -1,23 +1,30 @@
 class Solution {
-
     public int minimumTotal(List<List<Integer>> triangle) {
-        int m = triangle.size();
-        int n = triangle.get(m - 1).size();
-        int[][] dp = new int[m][n];
-        for(int[] row : dp) {
+        int n = triangle.size();
+        int[][] dp = new int[n+1][n+1];
+        for(int row[] : dp) {
             Arrays.fill(row, Integer.MAX_VALUE);
         }
-        return func(triangle, 0, 0, triangle.size(), dp);
+        return func(triangle, 0, 0, dp);
     }
-
-    public int func(List<List<Integer>> triangle, int row, int col, int n, int[][] dp) {
-        if (row == n - 1) {
-            return triangle.get(row).get(col);
+    
+    public int func(List<List<Integer>> triangle, int i, int j, int[][] dp) {
+        
+        if(i == triangle.size()-1) {
+            return triangle.get(i).get(j);
         }
-        if (dp[row][col] != Integer.MAX_VALUE) return dp[row][col];
-        int first = func(triangle, row + 1, col, n, dp);
-        int second = func(triangle, row + 1, col + 1, n, dp);
-        return dp[row][col] = Math.min(first, second) + triangle.get(row).get(col);
+        
+        if(i >= triangle.size() || j >= triangle.get(i).size()) {
+            return Integer.MAX_VALUE;
+        }
+        
+        if(dp[i][j] != Integer.MAX_VALUE) {
+            return dp[i][j];
+        }
+        
+        int out1 = triangle.get(i).get(j) + func(triangle, i+1, j, dp);
+        int out2 = triangle.get(i).get(j) + func(triangle, i+1, j+1, dp);
+        
+        return dp[i][j] = Math.min(out1, out2);
     }
 }
-
