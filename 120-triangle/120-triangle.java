@@ -3,7 +3,7 @@ class Solution {
         int n = triangle.size();
         int[][] dp = new int[n+1][n+1];
         for(int row[] : dp) {
-            Arrays.fill(row, Integer.MAX_VALUE);
+            Arrays.fill(row, -1);
         }
         return func(triangle, 0, 0, dp);
     }
@@ -18,7 +18,7 @@ class Solution {
             return Integer.MAX_VALUE;
         }
         
-        if(dp[i][j] != Integer.MAX_VALUE) {
+        if(dp[i][j] != -1) {
             return dp[i][j];
         }
         
